@@ -1,0 +1,1 @@
+[19-Aug-2017 11:12:44 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\UserController::destroy() in /home/ddslisco/dev.ddslis.com/app/Http/Controllers/UserController.php on line 204
