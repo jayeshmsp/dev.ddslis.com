@@ -7,31 +7,35 @@
     "require": {
         "php": ">=5.6.4",
         "arcanedev/no-captcha": "^4.0",
+        "artem-schander/l5-modular": "^1.4",
         "dirkgroenen/Pinterest-API-PHP": "^0.2.11",
         "guzzlehttp/guzzle": "~6.0",
+        "laracasts/generators": "dev-master as 1.1.4",
         "laravel/cashier": "~7.0",
-        "laravel/framework": "5.4.*",
+        "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4",
-        "skovmand/mailchimp-laravel": "^1.0",
-        "spatie/laravel-activitylog": "^1.15",
+        "msppack/dds-generate": "^1.5",
+        "nwidart/laravel-modules": "^1.0",
+        "skovmand/mailchimp-laravel": "1.0.8",
+        "spatie/laravel-activitylog": "^2.0",
         "stripe/stripe-php": "^4.12",
-        "zizaco/entrust": "5.2.x-dev",
-        "laracasts/generators": "dev-master as 1.1.4",
-        "msppack/dds-generate": "^1.5"
+        "zizaco/entrust": "5.2.x-dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7"
+        "phpunit/phpunit": "~6.0",
+        "filp/whoops" : "~2.0"
     },
     "autoload": {
         "classmap": [
             "database"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Modules\\": "Modules/"
         }
     },
     "autoload-dev": {
@@ -53,6 +57,10 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
         ]
     },
     "config": {

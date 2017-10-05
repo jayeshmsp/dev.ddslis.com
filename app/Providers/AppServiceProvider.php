@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\Models\Activity;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
 
         \Schema::defaultStringLength(191);
         //
+        Activity::saving(function (Activity $activity) {
+            $activity->properties = $activity->properties->put('remote_ip', $_SERVER['REMOTE_ADDR']);
+        });
     }
 
     /**

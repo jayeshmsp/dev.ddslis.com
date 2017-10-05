@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid company-list">
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
@@ -15,33 +15,45 @@
                             </a>
                         </h3>
                     </div>
-                @endpermission
+                @endpermission 
                 <div class="table-responsive">
                     <table id="example1" class="table">
                         @if($items->count())
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>User ID #</th>
+                                <th>Company</th>
                                 <th>Fisrt Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
+                                <th>Username</th>
+                                <th>Contact Id</th>
+                                <th>Application Status</th>
+                                <th>User Type</th>
                                 <th>Platform</th>
                                 <th>Last Login</th>
                                 <th>Login Type</th>
+                                <th>Login IP</th>
                                 <th width="150">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($items as $value)
                             <tr>
-                                <td>{{$srno++ }}</td>
+                                <td>{{$value->id }}</td>
+                                <td>{{$value->company_name }}{{ (!empty($value->company_number))?"[$value->company_number]":'' }}</td>
                                 <td>{{$value->first_name}}</td>
                                 <td>{{$value->last_name}}</td>
                                 <td>{{$value->email}}</td>
+                                <td>{{$value->username}}</td>
+                                <td>{{$value->contact_id}}</td>
+                                <td>{{$value->status or ''}}</td>
+                                <td>{{isset($roles[$value->role_id])?$roles[$value->role_id]:''}}</td>
                                 <td>{{$value->platform}}</td>
                                 <td>{{$value->last_login}}</td>
                                 <td>{{$value->provider}}</td>
-                                <td>
+                                <td>{{$value->login_ip or '' }}</td>
+                                <td class="no-wrap">
                                 @permission('user-edit')
                                     {!! Form::open(array('url' => 'user/'.$value->id,'method'=>'delete','class'=>'form-inline')) !!}    
                                          <a href="{{url('user/'.$value->id.'/edit')}}" class="btn btn-small btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>

@@ -167,6 +167,27 @@
                 {!! $errors->first('mail_encryption', '<span class="help-block">:message</span>') !!}
             </div>
         </div>
+        <div class="form-group {{ $errors->has('plivo_auth_id') ? 'has-error' : '' }}">
+            <label class="control-label col-lg-3" for="name">Plivo Auth Id</label>
+            <div class="col-lg-6">
+                {!! Form::text('plivo_auth_id',old('plivo_auth_id'),array('class'=>'form-control')) !!}
+                {!! $errors->first('plivo_auth_id', '<span class="help-block">:message</span>') !!}
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('plivo_auth_token') ? 'has-error' : '' }}">
+            <label class="control-label col-lg-3" for="name">Plivo Auth Token</label>
+            <div class="col-lg-6">
+                {!! Form::text('plivo_auth_token',old('plivo_auth_token'),array('class'=>'form-control')) !!}
+                {!! $errors->first('plivo_auth_token', '<span class="help-block">:message</span>') !!}
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('plivo_auth_number') ? 'has-error' : '' }}">
+            <label class="control-label col-lg-3" for="name">Plivo Auth Number</label>
+            <div class="col-lg-6">
+                {!! Form::text('plivo_auth_number',old('plivo_auth_number'),array('class'=>'form-control')) !!}
+                {!! $errors->first('plivo_auth_number', '<span class="help-block">:message</span>') !!}
+            </div>
+        </div>
         <div class="form-group {{ $errors->has('salesforce_dashboard_url') ? 'has-error' : '' }}">
             <label class="control-label col-lg-3" for="name">Salesforce Dashboard Url</label>
             <div class="col-lg-6">

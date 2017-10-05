@@ -6,6 +6,14 @@
             <div class="col-md-12">
                 <div class="white-box">
                 {!! Form::model($item, array('method' => 'POST', 'url' => 'user/profile','class'=>'form-horizontal')) !!}
+                
+                <div class="form-group m-b-15">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" name="save" class="btn btn-info waves-effect waves-light m-t-10">Update</button>
+                        <a class="btn btn-danger waves-effect waves-light m-t-10" href="{{ url('home') }}">Cancel</a>
+                    </div>
+                </div>
+
                 <div class="form-group {{ $errors->has('first_name') ? 'has-error' : '' }}">
                     <label class="col-sm-3 control-label">First Name</label>
                     <div class="col-sm-6">

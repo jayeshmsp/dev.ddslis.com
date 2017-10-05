@@ -12,6 +12,11 @@
                     <a href="/user"> <i class="mdi mdi-account" data-icon="v"></i><span class="hide-menu"> User</span></a>
                 </li>                
             @endpermission
+            @permission('manage-company')
+                <li class="waves-effect {{ ((Request::segment(1)=='customer') ? 'active' : '') }}">
+                    <a href="/customer"> <i class="mdi mdi-pencil" data-icon="v"></i><span class="hide-menu">Company</span></a>
+                </li>                
+            @endpermission
             @permission('manage-roles')
                 <li class="waves-effect {{ ((Request::segment(1)=='role') ? 'active' : '') }}">
                     <a href="/role"> <i class="mdi mdi-school" data-icon="v"></i><span class="hide-menu"> Role</span></a>
@@ -32,6 +37,11 @@
                     <a href="/logs"> <i class="mdi mdi-pencil" data-icon="v"></i><span class="hide-menu">Activity Log</span></a>
                 </li>                
             @endpermission
+            @role('admin')
+                <li class="waves-effect {{ ((Request::segment(1)=='api_log') ? 'active' : '') }}">
+                    <a href="{{ url('api_log') }}"> <i class="fa fa-history" data-icon="v"></i><span class="hide-menu"> Api Logs</span></a>
+                </li>                
+            @endrole
         </ul>
     </div>
 </div>

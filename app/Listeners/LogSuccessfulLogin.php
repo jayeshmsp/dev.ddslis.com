@@ -29,6 +29,7 @@ class LogSuccessfulLogin
         session(['last_login'=>$event->user->last_login]);
 
         $event->user->last_login = date('Y-m-d H:i:s');
+        $event->user->login_ip = $_SERVER["REMOTE_ADDR"];
         $event->user->save();
     }
 }

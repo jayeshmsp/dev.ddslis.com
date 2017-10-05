@@ -8,6 +8,13 @@
 
                 <!-- form start -->
                 {!! Form::model($item, array('method' => 'PATCH', 'url' => $ctrl_url.'/'.$item['id'],'class'=>'form-horizontal','id'=>'setting-form')) !!}
+                    <div class="form-group m-b-15">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" name="save" class="btn btn-info waves-effect waves-light m-t-10">Update</button>
+                            <a class="btn btn-danger waves-effect waves-light m-t-10" href="{{ url($ctrl_url) }}">Cancel</a>
+                        </div>
+                    </div>
+
                     @include($view_path.'.partials.form')
 
                     <div class="form-group m-b-0">

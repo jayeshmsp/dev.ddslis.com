@@ -35,6 +35,31 @@
         </div>
     </div>
 @endif
+
+<div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
+    <label class="col-sm-3 control-label">Username</label>
+    <div class="col-sm-6">
+        {!! Form::text('username',null,array('class'=>'form-control')) !!}
+        {!! $errors->first('username', '<span class="help-block">:message</span>') !!}
+    </div>
+</div>
+
+<div class="form-group {{ $errors->has('contact_id') ? 'has-error' : '' }}">
+    <label class="col-sm-3 control-label">Contact ID</label>
+    <div class="col-sm-6">
+        {!! Form::text('contact_id',null,array('class'=>'form-control')) !!}
+        {!! $errors->first('contact_id', '<span class="help-block">:message</span>') !!}
+    </div>
+</div>
+
+<div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+    <label class="col-sm-3 control-label">Application Status</label>
+    <div class="col-sm-6">
+        {!! Form::text('status',null,array('class'=>'form-control')) !!}
+        {!! $errors->first('status', '<span class="help-block">:message</span>') !!}
+    </div>
+</div>
+
 <div class="form-group {{ $errors->has('role_id') ? 'has-error' : '' }}">
     <label class="col-sm-3 control-label">Select Roles</label>
     <div class="col-sm-6">

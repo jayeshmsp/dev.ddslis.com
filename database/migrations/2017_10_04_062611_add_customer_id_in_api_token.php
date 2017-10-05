@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFieldsInUsrTbl extends Migration
+class AddCustomerIdInApiToken extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class AddFieldsInUsrTbl extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($table) {
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('zipcode')->nullable();
-            $table->string('login_ip')->nullable();
+        Schema::table('api_token', function ($table) {
+            $table->integer('customer_id')->unsigned()->nullable();
         });
     }
 

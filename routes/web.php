@@ -47,6 +47,10 @@ Route::group(['middleware' => ['role:admin|user']], function()
 	Route::post('user/profile','UserController@postProfile');
 
 	Route::resource('user','UserController');
+	
+	Route::post('customer/create-secret-key','CustomerController@createSecretKey');
+	Route::resource('customer','CustomerController');
+
 	Route::resource('role','RoleController');
 	Route::resource('permission','PermissionController');
 	Route::get('role/{id}/permission', 'RoleController@permissions');
@@ -58,6 +62,8 @@ Route::group(['middleware' => ['role:admin|user']], function()
 Route::group(['middleware' => ['role:admin']], function(){
 	Route::get('logs','SettingController@logs');
 	Route::resource('setting','SettingController');
-        Route::post('change-password','UserController@resetPassword');
-        Route::post('add-question','SettingController@addQuestion');
-});
+    Route::post('change-password','UserController@resetPassword');
+    Route::post('add-question','SettingController@addQuestion');
+    Route::get('api_log','ApiLogController@index');
+    Route::get('logs/view','ApiLogController@view');
+}); 

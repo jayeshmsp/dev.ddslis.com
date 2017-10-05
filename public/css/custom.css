@@ -24,3 +24,10 @@ ul.question-div {
     border-radius: 7px;
     padding: 6px 24px 10px;
 }
+
+.company-list table th {
+  white-space:nowrap;
+}
+.no-wrap {
+  white-space: nowrap;
+}

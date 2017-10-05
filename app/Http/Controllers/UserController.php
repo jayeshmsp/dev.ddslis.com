@@ -40,14 +40,19 @@ class UserController extends Controller
         $param['paginate'] = TRUE;
         if($request->input('filter.name.value')){
             $param['filter']['name']['value'] = '%'.$request->input('filter.name.value').'%';
-        }
+        } 
 
         $items = $this->UserRepo->getBy($param);
 
         //serial number
         $srno = ($request->input('page', 1) - 1) * config("setup.par_page", 10)  + 1;
 
-        $compact = compact('items','srno');
+        $roles = $this->RoleRepo->getBy();
+        foreach($roles as $role ) {
+            $roles[$role->id] = $role->display_name;
+        }
+
+        $compact = compact('items','srno','roles');
 
         return view($this->view_path . '.index',$compact)
                 ->with('title', 'list');
@@ -71,8 +76,9 @@ class UserController extends Controller
             'last_name' => 'required|alpha_space|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'username' => 'required|string|max:255|unique:users',
             'role_id' => 'required'
-        ];
+        ]; 
         // Create a new validator instance from our validation rules
         $validator = Validator::make($inputs, $rules);
 
@@ -115,6 +121,7 @@ class UserController extends Controller
             'first_name' => 'required|string|alpha_space|max:255',
             'last_name' => 'required|string|alpha_space|max:255',
             //'password' => 'required|string|min:6|confirmed',
+            'username' => 'required|string|max:255|unique:users,username,'.$id,
             'role_id' => 'required'
         ];
         if(!$request->input('password')){

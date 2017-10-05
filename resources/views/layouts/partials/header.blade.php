@@ -18,7 +18,7 @@
         <!-- Search input and Toggle icon -->
         <ul class="nav navbar-top-links navbar-left">
             <li><a href="javascript:void(0)" class="open-close waves-effect waves-light visible-xs"><i class="ti-close ti-menu"></i></a></li>
-            <li class="dropdown">
+            {{-- <li class="dropdown">
                 <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"> <i class="mdi mdi-gmail"></i>
                     <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                 </a>
@@ -55,9 +55,9 @@
                                     </li>
                                 </ul>
                                 <!-- /.dropdown-messages -->
-                            </li>
+                            </li> --}}
                             <!-- .Task dropdown -->
-                            <li class="dropdown">
+                           {{--  <li class="dropdown">
                                 <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"> <i class="mdi mdi-check-circle"></i>
                                     <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                                 </a>
@@ -110,7 +110,7 @@
                                         <a class="text-center" href="#"> <strong>See All Tasks</strong> <i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <!-- .Megamenu -->
                             {{-- <li class="mega-dropdown"> <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"><span class="hidden-xs">Mega</span> <i class="icon-options-vertical"></i></a>
                             <ul class="dropdown-menu mega-dropdown-menu animated bounceInDown">
@@ -172,10 +172,10 @@
                     </ul>
                     <ul class="nav navbar-top-links navbar-right pull-right">
                         <li>
-                            <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
+{{--                             <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
                                 <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
                             </li>
-                            <li class="dropdown">
+ --}}                            <li class="dropdown">
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> {{-- <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"> --}}<b class="hidden-xs">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</b><span class="caret"></span> </a>
                                 <ul class="dropdown-menu dropdown-user animated flipInY">
                                     <li>

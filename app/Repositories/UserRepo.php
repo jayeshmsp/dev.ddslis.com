@@ -9,12 +9,16 @@ class UserRepo
 {
 	public function getBy($params = array())
 	{
-		$query = DB::table('users');
-
-        $query->select(array(
-            'users.*',
-        ));
-
+		$query = DB::table('users')->leftjoin("role_user","users.id","=","role_user.user_id");
+		$query->select(array(
+           	'users.*',
+           	"role_user.role_id",
+           	"customers.company_name",
+           	"customers.company_number"
+        ))
+        ->leftjoin('customers',function($join){
+        	$join->on('customers.id','=','users.customer_id');
+        });
         $EloquentHelper = new EloquentHelper();
         return $EloquentHelper->allInOne($query, $params);
 	}
@@ -23,7 +27,7 @@ class UserRepo
 	public function find($id)
 	{
 		return User::find($id);
-	}
+	} 
 
 	/**
 	 * Create a new user instance after a valid registration.
@@ -41,6 +45,9 @@ class UserRepo
 		$user->platform  = config('app.name');
 		$user->password  = bcrypt($data['password']);
 		$user->verified  = DB::raw('"1"');
+		$user->username  = $data['username'];		
+		$user->contact_id  = $data['contact_id'];
+		$user->status  = $data['status'];
 		$user->save();
 
 		foreach($data['role_id'] as $role_id){
@@ -64,7 +71,9 @@ class UserRepo
 		$user->last_name  = $data['last_name'];
 		$user->name  = $data['first_name'].' '.$data['last_name'];
 		$user->email  = $data['email'];
-
+		$user->username  = $data['username'];		
+		$user->contact_id  = $data['contact_id'];
+		$user->status  = $data['status'];
 		if(!empty($data['password'])){
 			$user->password  = bcrypt($data['password']);
 		}

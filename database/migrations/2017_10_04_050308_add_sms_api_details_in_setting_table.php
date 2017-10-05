@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFieldsInUsrTbl extends Migration
+class AddSmsApiDetailsInSettingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class AddFieldsInUsrTbl extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($table) {
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('zipcode')->nullable();
-            $table->string('login_ip')->nullable();
+        Schema::table('settings', function ($table) {
+            $table->string('plivo_auth_id')->nullable();
+            $table->string('plivo_auth_token')->nullable();
+            $table->string('plivo_auth_number')->nullable();
         });
     }
 
