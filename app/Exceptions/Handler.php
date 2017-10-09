@@ -5,6 +5,10 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Mail;
+use Symfony\Component\Debug\Exception\FlattenException;
+use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
+use App\Mail\ExceptionOccured;
 
 class Handler extends ExceptionHandler
 {
@@ -32,6 +36,10 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        $debug = config('app.debug');
+        if ( empty($debug) && $this->shouldReport($exception)) {
+            $this->sendEmail($exception); // sends an email
+        }
         parent::report($exception);
     }
 
@@ -61,5 +69,22 @@ class Handler extends ExceptionHandler
         }
 
         return redirect()->guest(route('login'));
+    }
+
+    public function sendEmail(Exception $exception)
+    {
+        try {
+            $e = FlattenException::create($exception);
+
+            $handler = new SymfonyExceptionHandler();
+
+            $html = $handler->getHtml($e);
+            Mail::to(env('DEVELOPER_EMAIL1'))
+                ->cc(env('DEVELOPER_EMAIL2'))
+                ->bcc(env('DEVELOPER_EMAIL3'))
+                ->send(new ExceptionOccured($html));
+        } catch (Exception $ex) {
+            dd($ex);
+        }
     }
 }
