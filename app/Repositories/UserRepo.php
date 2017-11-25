@@ -13,7 +13,7 @@ class UserRepo
 		$query->select(array(
            	'users.*',
            	"role_user.role_id",
-           	"customers.company_name",
+           	DB::raw('CONCAT(customers.company_name, "[",company_number,"]") AS company_name'),
            	"customers.company_number"
         ))
         ->leftjoin('customers',function($join){

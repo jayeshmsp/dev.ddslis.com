@@ -148,6 +148,16 @@
         {!! $errors->first('license_valid', '<span class="help-block">:message</span>') !!}
     </div>
 </div>
+@if (isset($item->is_converted_user) && !empty($item->is_converted_user) )
+    <div class="form-group {{ $errors->has('is_converted_user') ? 'has-error' : '' }}">
+        <label class="col-sm-3 control-label">Is User Converted</label>
+        <div class="col-sm-6">
+            {!! Form::select('is_converted_user',['1'=>'Converted','0'=>'Not Converted'],old('is_converted_user'),array('class'=>'form-control','id'=>'is_converted_user')) !!}
+            {!! $errors->first('is_converted_user', '<span class="help-block">:message</span>') !!}
+        </div>
+    </div>
+@endif
+
 @section('footer')
     <script>
         $(document).ready(function(){

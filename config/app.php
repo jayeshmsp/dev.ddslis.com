@@ -187,7 +187,9 @@ return [
         Laravel\Cashier\CashierServiceProvider::class,
         Skovmand\Mailchimp\MailchimpServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
-        MspPack\DDSGenerate\DDSGenerateServiceProvider::class,
+        //MspPack\DDSGenerate\DDSGenerateServiceProvider::class,
+        Yajra\DataTables\DatatablesServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -243,6 +245,8 @@ return [
         'Captcha' => Arcanedev\NoCaptcha\Facades\NoCaptcha::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Datatables' => Yajra\DataTables\Facades\DataTables::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

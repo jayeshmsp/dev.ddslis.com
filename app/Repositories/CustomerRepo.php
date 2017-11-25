@@ -44,7 +44,7 @@ class CustomerRepo
 	 */
 	public function update(array $data,$id)
 	{
-		$customer = Customer::find($id)->update($data);
+		$customer = Customer::where('id','=',$id)->update($data);
 		return $customer;
 	}
 

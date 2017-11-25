@@ -14,8 +14,10 @@
 
 #wrapper.new-login-register .new-login-box {
   margin: 0 auto;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
+
 #wrapper.new-login-register {
     position: relative;
 }

@@ -4,11 +4,15 @@
             <!-- Logo -->
             <a class="logo" href="{{'home'}}">
                 <b>
-                    Diametric Data Sys.
-                    {{-- <img src="../plugins/images/admin-logo.png" alt="home" class="dark-logo" />
-                    <img src="../plugins/images/admin-logo-dark.png" alt="home" class="light-logo" /> --}}
+                    <img src="{{asset('plugins/images/admin-logo.png')}}" alt="home" class="dark-logo" />
+                    <img src="{{asset('plugins/images/admin-logo-dark.png')}}" alt="home" class="light-logo" />
                 </b>
                 <span class="hidden-xs">
+                    <?php $company_name = 'Diametric Data Sys'; ?>
+                    @role('company')
+                        <?php $company_name = (isset($customer->company_name))?$customer->company_name:'Diametric Data Sys.'; ?>
+                    @endrole
+                    {{$company_name}}
                     {{-- <img src="../plugins/images/admin-text.png" alt="home" class="dark-logo" />
                     <img src="../plugins/images/admin-text-dark.png" alt="home" class="light-logo" /> --}}
                 </span> 

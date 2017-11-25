@@ -7,9 +7,13 @@ use App\Repositories\RoleRepo;
 use Illuminate\Support\Facades\Validator;
 use View;
 use Auth;
+use Html;
+use Form;
 use Response;
 use App\User;
+use Datatables;
 use Mail;
+use Entrust;
 use App\Mail\resetPassword;
 
 class UserController extends Controller
@@ -18,6 +22,7 @@ class UserController extends Controller
     protected $UserRepo;
     protected $RoleRepo;
     protected $SettingRepo;
+    protected $roles;
 
     public function __construct(Request $request,UserRepo $UserRepo,RoleRepo $RoleRepo,SettingRepo $SettingRepo)
     {
@@ -25,6 +30,11 @@ class UserController extends Controller
         $this->UserRepo = $UserRepo;
         $this->RoleRepo = $RoleRepo;
         $this->SettingRepo = $SettingRepo;
+        $roles = $this->RoleRepo->getBy();
+
+        foreach($roles as $role ) {
+            $this->roles[$role->id] = $role->display_name;
+        }
 
         $this->view_path = 'users.user';
         View::share('module_name', 'Users');
@@ -35,12 +45,12 @@ class UserController extends Controller
     // Output : return index view
     public function index(Request $request)
     {
-    	$param['filter'] = $request->input("filter", array());
+        $param['filter'] = $request->input("filter", array());
         $param['sort'] = $request->input("sort", array('created_at'=>'desc'));
         $param['paginate'] = TRUE;
         if($request->input('filter.name.value')){
             $param['filter']['name']['value'] = '%'.$request->input('filter.name.value').'%';
-        } 
+        }
 
         $items = $this->UserRepo->getBy($param);
 
@@ -233,5 +243,27 @@ class UserController extends Controller
             
             return Response::json(["msg"=>"Password has been changed and mail sent to user.",200]);
         }
+    }
+
+    public function getDatas()
+    {
+        $param = [];
+        if (Entrust::hasRole('company')) {
+            $param['filter']['users.customer_id']['value'] = Auth::user()->is_customer;
+            $param['filter']['users.customer_id']['oprator'] = '=';
+        }
+        
+        $user = $this->UserRepo->getBy($param);
+        
+        return Datatables::of($user)
+            //->editColumn('role_id',"{{isset($this->roles[$user->role_id])?$this->roles[$user->role_id]:''}}")
+            ->addColumn('action', function ($user) {
+                $form =  Html::decode(Form::open(["url" => url("user/$user->id"),"method"=>"delete"]));
+                return $form.'<a href=user/'.$user->id.'/edit class="btn btn-small btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a data-userId="'.$user->id.'" href="javascript:void(0)" class="btn btn-small btn-primary reset-pass-modal"><span class="glyphicon glyphicon-lock"></span></a>
+                            <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                        </form>';
+            })
+            ->make(true);
     }
 }

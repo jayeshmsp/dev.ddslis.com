@@ -17,8 +17,7 @@
                     </div>
                 @endpermission 
                 <div class="table-responsive">
-                    <table id="example1" class="table">
-                        @if($items->count())
+                    <table id="users" class="table table-striped table-bordered table-condensed">
                         <thead>
                             <tr>
                                 <th>User ID #</th>
@@ -29,52 +28,17 @@
                                 <th>Username</th>
                                 <th>Contact Id</th>
                                 <th>Application Status</th>
-                                <th>User Type</th>
+                                {{-- <th>User Type</th> --}}
                                 <th>Platform</th>
                                 <th>Last Login</th>
                                 <th>Login Type</th>
                                 <th>Login IP</th>
-                                <th width="150">Action</th>
+                                <th>Action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($items as $value)
-                            <tr>
-                                <td>{{$value->id }}</td>
-                                <td>{{$value->company_name }}{{ (!empty($value->company_number))?"[$value->company_number]":'' }}</td>
-                                <td>{{$value->first_name}}</td>
-                                <td>{{$value->last_name}}</td>
-                                <td>{{$value->email}}</td>
-                                <td>{{$value->username}}</td>
-                                <td>{{$value->contact_id}}</td>
-                                <td>{{$value->status or ''}}</td>
-                                <td>{{isset($roles[$value->role_id])?$roles[$value->role_id]:''}}</td>
-                                <td>{{$value->platform}}</td>
-                                <td>{{$value->last_login}}</td>
-                                <td>{{$value->provider}}</td>
-                                <td>{{$value->login_ip or '' }}</td>
-                                <td class="no-wrap">
-                                @permission('user-edit')
-                                    {!! Form::open(array('url' => 'user/'.$value->id,'method'=>'delete','class'=>'form-inline')) !!}    
-                                         <a href="{{url('user/'.$value->id.'/edit')}}" class="btn btn-small btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
-                                         <a data-userId="{{$value->id}}" href="javascript:void(0)" class="btn btn-small btn-primary reset-pass-modal"><span class="glyphicon glyphicon-lock"></span></a>
-                                         <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-                                    {!! Form::close() !!}
-                                @endpermission
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        @else
-                        <tbody>
-                            <tr>
-                                <th>There are no records</th>
-                            </tr>
-                        </tbody>
-                        @endif
                     </table>
                 </div>
-                {!! str_replace('/?', '?', $items->appends(Request::except(array('page')))->render()) !!}
+                
             </div>
         </div>
     </div>
@@ -119,16 +83,42 @@
 
 <script>
     $(document).ready(function(){
+        oTable = $('#users').DataTable({
+            responsive: true,
+            //"fixedHeader": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{{ url('user/getDatas') }}",
+            "columns": [
+                {data:'id',id:'id'},
+                {data:'company_name',id:'company_name'},
+                {data:'first_name',id:'first_name'},
+                {data:'last_name',id:'last_name'},
+                {data:'email',id:'email'},
+                {data:'username',id:'username'},
+                {data:'contact_id',id:'contact_id'},
+                {data:'status',id:'status'},
+                /*{data:'role_id',id:'role_id'},*/
+                {data:'platform',id:'platform'},
+                {data:'last_login',id:'last_login'},
+                {data:'provider',id:'provider'},
+                {data:'login_ip',id:'login_ip'},
+                {data:'action',id:'action',orderable: false, searchable: false},
+            ]
+        });
+
+
         var url = "{{url('/change-password')}}";
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $(".reset-pass-modal").click(function(){
+        $('body').on('click','.reset-pass-modal',function(){
            $("#resetPassID").val($(this).attr('data-userId'));
-           $("#resetPassModal").modal("show");
+           $("#resetPassModal").modal("show"); 
         });
+        
         
         $("#savePass").click(function(){
             var formData = $("#reset_pass_form").serialize();

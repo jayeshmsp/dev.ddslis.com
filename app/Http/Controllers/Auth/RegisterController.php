@@ -153,4 +153,42 @@ class RegisterController extends Controller
         }
         return redirect('login')->with('error','You Are Already verified or token not found in our records.');
     }
+    public function companyVerify($token='')
+    {
+        $user = User::where('email_token',$token)->first();
+        if (!empty($user)) {
+        
+            return view('auth.verify')
+            ->with('user',$user);
+        }
+        return redirect('login')->with('error','You Are Already verified or token not found in our records.');
+    }
+    public function companyVerifyStore(Request $request,$id='')
+    {
+        $data = $request->all();
+        $rules = [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) 
+        {
+            return back()->withErrors($validator)
+                        ->withInput();
+            //$this->throwValidationException($request, $validator);
+        }
+        
+        User::where('id','=',$id)->update([
+            'first_name' => $data['first_name'],
+            'verified' => DB::raw("'1'"),
+            'last_name' => $data['last_name'],
+            'username' => $data['username'],
+            'password' => bcrypt($data['password']),
+            'email_token' => ''
+        ]);
+        User::where('id','=',$id)->update(['verified' => '1']);
+        return redirect('login')->with('success','Please Login.');
+    }
 }

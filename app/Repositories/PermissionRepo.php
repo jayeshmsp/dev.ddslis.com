@@ -76,7 +76,7 @@ class PermissionRepo
 	public function update(array $data,$id)
 	{
 		$update_data = array(
-			'name' => $data['name'],
+			//'name' => $data['name'],
 			'display_name' => $data['display_name'],
 			'description' => $data['description'],
 		);
