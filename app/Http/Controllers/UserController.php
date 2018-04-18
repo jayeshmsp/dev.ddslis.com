@@ -139,6 +139,9 @@ class UserController extends Controller
         }
         //$rules['email']="required|email|max:255|unique:users,email,".$id;
         $rules['email']="required|email|max:255";
+        $rules['homeemail']="email|max:255";
+        $rules['alternateemail']="email|max:255";
+        $rules['workemail']="email|max:255";
 
         // Create a new validator instance from our validation rules
         $validator = Validator::make($inputs, $rules);

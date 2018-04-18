@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Models\Activity;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**

@@ -19,6 +19,31 @@
         {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
     </div>
 </div>
+
+<div class="form-group {{ $errors->has('homeemail') ? 'has-error' : '' }}">
+    <label class="col-sm-3 control-label">Home Email</label>
+    <div class="col-sm-6">
+        {!! Form::text('homeemail',null,array('class'=>'form-control')) !!}
+        {!! $errors->first('homeemail', '<span class="help-block">:message</span>') !!}
+    </div>
+</div>
+
+<div class="form-group {{ $errors->has('alternateemail') ? 'has-error' : '' }}">
+    <label class="col-sm-3 control-label">Alternate Email</label>
+    <div class="col-sm-6">
+        {!! Form::text('alternateemail',null,array('class'=>'form-control')) !!}
+        {!! $errors->first('alternateemail', '<span class="help-block">:message</span>') !!}
+    </div>
+</div>
+
+<div class="form-group {{ $errors->has('workemail') ? 'has-error' : '' }}">
+    <label class="col-sm-3 control-label">Work Email</label>
+    <div class="col-sm-6">
+        {!! Form::text('workemail',null,array('class'=>'form-control')) !!}
+        {!! $errors->first('workemail', '<span class="help-block">:message</span>') !!}
+    </div>
+</div>
+
 @if(!isset($item))
     <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
         <label class="col-sm-3 control-label">Password</label>

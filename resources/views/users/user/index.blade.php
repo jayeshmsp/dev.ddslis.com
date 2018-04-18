@@ -22,7 +22,7 @@
                             <tr>
                                 <th>User ID #</th>
                                 <th>Company</th>
-                                <th>Fisrt Name</th>
+                                <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
                                 <th>Username</th>

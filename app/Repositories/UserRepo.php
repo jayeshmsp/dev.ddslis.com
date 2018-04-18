@@ -42,6 +42,9 @@ class UserRepo
 		$user->last_name  = $data['last_name'];
 		$user->name  = $data['first_name'].' '.$data['last_name'];
 		$user->email  = $data['email'];
+		$user->homeemail  = $data['homeemail'];
+		$user->alternateemail  = $data['alternateemail'];
+		$user->workemail  = $data['workemail'];
 		$user->platform  = config('app.name');
 		$user->password  = bcrypt($data['password']);
 		$user->verified  = DB::raw('"1"');
@@ -71,6 +74,9 @@ class UserRepo
 		$user->last_name  = $data['last_name'];
 		$user->name  = $data['first_name'].' '.$data['last_name'];
 		$user->email  = $data['email'];
+		$user->homeemail  = $data['homeemail'];
+		$user->alternateemail  = $data['alternateemail'];
+		$user->workemail  = $data['workemail'];
 		$user->username  = $data['username'];		
 		$user->contact_id  = $data['contact_id'];
 		$user->status  = $data['status'];
